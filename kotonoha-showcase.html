@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>言の葉 - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500&family=Crimson+Pro:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --bg-main: #fafaf8;
+        --bg-card: #ffffff;
+        --bg-dark: #2d3436;
+        --text-primary: #1a1a1a;
+        --text-secondary: #636e72;
+        --text-muted: #95a5a6;
+        --accent-leaf: #5a6e5a;
+        --accent-autumn: #c17f59;
+        --accent-gold: #d4a853;
+        --border: #e8e8e8;
+        --shadow: rgba(0, 0, 0, 0.06);
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Zen Kaku Gothic New", sans-serif;
+        background: var(--bg-main);
+        color: var(--text-primary);
+        line-height: 1.8;
+        font-weight: 300;
+        overflow-x: hidden;
+      }
+
+      /* Falling Leaves Background */
+      .leaves-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+
+      .leaf {
+        position: absolute;
+        font-size: 1.2rem;
+        opacity: 0.15;
+        animation: fall linear infinite;
+        will-change: transform;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(-5vh) rotate(0deg) translateX(0);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.15;
+        }
+        90% {
+          opacity: 0.15;
+        }
+        100% {
+          transform: translateY(105vh) rotate(720deg) translateX(50px);
+          opacity: 0;
+        }
+      }
+
+      @keyframes sway {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        50% {
+          transform: translateX(20px);
+        }
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Hero */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 4rem 2rem;
+      }
+
+      .hero-content {
+      }
+
+      .hero-icon {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+      }
+
+      .hero-title {
+        font-family: "Crimson Pro", serif;
+        font-size: 4rem;
+        font-weight: 500;
+        letter-spacing: 0.15em;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+      }
+
+      .hero-subtitle {
+        font-size: 1.4rem;
+        color: var(--text-secondary);
+        letter-spacing: 0.2em;
+        margin-bottom: 2.5rem;
+      }
+
+      .hero-tagline {
+        font-size: 1.8rem;
+        font-weight: 400;
+        color: var(--text-primary);
+        margin-bottom: 1.5rem;
+        letter-spacing: 0.05em;
+      }
+
+      .hero-description {
+        font-size: 1.15rem;
+        color: var(--text-secondary);
+        max-width: 550px;
+        line-height: 2;
+      }
+
+      /* Sections */
+      section {
+        padding: 6rem 0;
+      }
+
+      .section-title {
+        font-family: "Crimson Pro", serif;
+        font-size: 2rem;
+        font-weight: 500;
+        text-align: center;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+      }
+
+      .section-subtitle {
+        text-align: center;
+        color: var(--text-secondary);
+        margin-bottom: 4rem;
+        font-size: 1.05rem;
+      }
+
+      /* Philosophy */
+      .philosophy-section {
+        background: var(--bg-card);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .transformation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 3rem;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+      }
+
+      .transform-box {
+        padding: 2rem 2.5rem;
+        border-radius: 12px;
+        text-align: center;
+        min-width: 200px;
+      }
+
+      .transform-box.before {
+        background: #f5f5f5;
+        border: 1px solid var(--border);
+      }
+
+      .transform-box.after {
+        background: var(--bg-dark);
+        color: white;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      }
+
+      .transform-label {
+        font-size: 0.8rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        opacity: 0.6;
+        margin-bottom: 0.8rem;
+      }
+
+      .transform-text {
+        font-size: 1.4rem;
+        font-weight: 500;
+      }
+
+      .transform-arrow {
+        font-size: 2rem;
+        color: var(--text-muted);
+      }
+
+      .philosophy-text {
+        max-width: 700px;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 1.1rem;
+        line-height: 2.2;
+        color: var(--text-secondary);
+      }
+
+      .philosophy-text em {
+        color: var(--text-primary);
+        font-style: normal;
+        font-weight: 400;
+      }
+
+      /* Features */
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+
+      .feature-card {
+        background: var(--bg-card);
+        padding: 2.5rem;
+        border-radius: 16px;
+        box-shadow: 0 2px 20px var(--shadow);
+        border: 1px solid var(--border);
+      }
+
+      .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .feature-title {
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+      }
+
+      .feature-desc {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        line-height: 1.8;
+      }
+
+      /* Design */
+      .design-section {
+        background: var(--bg-dark);
+        color: white;
+      }
+
+      .design-section .section-title {
+        color: white;
+      }
+
+      .design-section .section-subtitle {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      .design-principles {
+        display: flex;
+        justify-content: center;
+        gap: 4rem;
+        margin-bottom: 4rem;
+      }
+
+      @media (max-width: 768px) {
+        .design-principles {
+          flex-direction: column;
+          gap: 2rem;
+          align-items: center;
+        }
+      }
+
+      .principle {
+        text-align: center;
+      }
+
+      .principle-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .principle-title {
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin-bottom: 0.8rem;
+      }
+
+      .principle-desc {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.8;
+      }
+
+      .color-palette {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+      }
+
+      .color-swatch {
+        width: 80px;
+        height: 80px;
+        border-radius: 12px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: 0.5rem;
+        font-size: 0.7rem;
+        letter-spacing: 0.05em;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .screenshot-area {
+        margin-top: 4rem;
+        padding: 4rem;
+        border: 2px dashed rgba(255, 255, 255, 0.2);
+        border-radius: 16px;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.4);
+      }
+
+      /* Experience */
+      .experience-section {
+        text-align: center;
+      }
+
+      .experience-demo {
+        background: var(--bg-card);
+        border-radius: 20px;
+        padding: 4rem;
+        box-shadow: 0 4px 40px var(--shadow);
+        border: 1px solid var(--border);
+        margin-bottom: 3rem;
+        position: relative;
+        overflow: hidden;
+        min-height: 300px;
+      }
+
+      .demo-words {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+      }
+
+      .demo-word {
+        position: absolute;
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: var(--text-primary);
+        opacity: 0;
+        animation: word-fall 8s ease-in-out infinite;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      @keyframes word-fall {
+        0% {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        15% {
+          opacity: 1;
+        }
+        85% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(250px);
+        }
+      }
+
+      .experience-text {
+        max-width: 600px;
+        margin: 0 auto;
+        color: var(--text-secondary);
+        font-size: 1.05rem;
+        line-height: 2;
+      }
+
+      /* CTA */
+      .cta-section {
+        text-align: center;
+        padding: 6rem 0;
+      }
+
+      .cta-button {
+        display: inline-block;
+        padding: 1.2rem 3.5rem;
+        background: var(--bg-dark);
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        animation: button-float 3s ease-in-out infinite;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      }
+      @keyframes button-float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+
+      .cta-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgb(0, 0, 0, 0.2);
+        background: var(--text-primary);
+        animation-play-state: paused;
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 3rem;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        border-top: 1px solid var(--border);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .hero-title {
+          font-size: 2.8rem;
+        }
+        .hero-tagline {
+          font-size: 1.4rem;
+        }
+        .transformation {
+          gap: 1.5rem;
+        }
+        .transform-arrow {
+          transform: rotate(90deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="leaves-container" id="leaves"></div>
+
+    <div class="container">
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-icon">🍃</div>
+          <h1 class="hero-title">言の葉</h1>
+          <p class="hero-subtitle">Vocabulary Learning</p>
+        </div>
+      </section>
+
+      <!-- Philosophy -->
+      <section class="philosophy-section">
+        <div class="container">
+          <h2 class="section-title">Design Concept</h2>
+          <p class="section-subtitle">記憶に、重力を。</p>
+
+          <p class="philosophy-text">
+            多くのフラッシュカードは、静止した文字を見るだけの体験でした。<br />
+            「言の葉」では、単語が<em>ハラハラと舞い落ちる葉</em>のように画面を流れます。<br />
+            落ちてくる言葉を<em>キャッチする</em>動的な体験を通じて、<br />
+            遊びながら覚える、新しい学習体験です。<br />
+          </p>
+        </div>
+      </section>
+
+      <!-- Experience Demo -->
+      <section class="experience-section">
+        <div class="container">
+          <h2 class="section-title">Learning Experience</h2>
+          <p class="section-subtitle">言葉が舞う、つかまえる、覚える</p>
+
+          <div class="experience-demo">
+            <div class="demo-words" id="demoWords"></div>
+          </div>
+
+          <p class="experience-text">
+            画面上に散りばめられた単語たちが、ゆっくりと落下していきます。<br />
+            気になる言葉をクリックすると、意味が現れる——<br />
+            「覚える」ではなく「拾い集める」感覚で、語彙を身につけていきます。
+          </p>
+        </div>
+      </section>
+
+      <!-- Features -->
+      <section class="features-section">
+        <div class="container">
+          <h2 class="section-title">Features</h2>
+          <p class="section-subtitle">学習を支える機能たち</p>
+
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-icon">📁</div>
+              <h3 class="feature-title">フォルダ管理</h3>
+              <p class="feature-desc">
+                科目や目的ごとにカードを整理。 英語、日本史、プログラミング——
+                自分だけの学習空間を構築できます。
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">🏷️</div>
+              <h3 class="feature-title">タグシステム</h3>
+              <p class="feature-desc">
+                複数のタグで柔軟に分類。 「重要」「基礎」「応用」など、
+                フォルダを超えた横断的な管理が可能です。
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">🔄</div>
+              <h3 class="feature-title">間隔反復学習</h3>
+              <p class="feature-desc">
+                科学的な復習タイミングで効率的に記憶。
+                習得度に応じて自動でカードが再出現し、
+                長期記憶への定着を促します。
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">📊</div>
+              <h3 class="feature-title">学習進捗</h3>
+              <p class="feature-desc">
+                日・週・月単位で学習状況を可視化。 連続学習日数や習得率など、
+                モチベーションを維持する指標を表示。
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">⏸️</div>
+              <h3 class="feature-title">速度コントロール</h3>
+              <p class="feature-desc">
+                落下速度を自由に調整。 じっくり学びたいときはスロー、
+                テンポよく復習したいときは高速に。
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">✨</div>
+              <h3 class="feature-title">テキスト装飾</h3>
+              <p class="feature-desc">
+                太字、ハイライト、拡大表示で 重要な部分を強調。
+                視覚的に印象づけて記憶を強化。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Design -->
+      <section class="design-section">
+        <div class="container">
+          <h2 class="section-title">Design Principles</h2>
+          <p class="section-subtitle">シンプルで洗練されたインターフェース</p>
+
+          <div class="design-principles">
+            <div class="principle">
+              <div class="principle-icon">🌿</div>
+              <h3 class="principle-title">有機的</h3>
+              <p class="principle-desc">
+                葉が舞い落ちるような<br />
+                自然で心地よい動き
+              </p>
+            </div>
+            <div class="principle">
+              <div class="principle-icon">⚪</div>
+              <h3 class="principle-title">ミニマル</h3>
+              <p class="principle-desc">
+                モノトーンを基調とした<br />
+                洗練されたビジュアル
+              </p>
+            </div>
+            <div class="principle">
+              <div class="principle-icon">🎮</div>
+              <h3 class="principle-title">遊び心</h3>
+              <p class="principle-desc">
+                学習をゲーム化する<br />
+                インタラクティブな体験
+              </p>
+            </div>
+          </div>
+
+          <p
+            style="
+              text-align: center;
+              font-size: 0.85rem;
+              opacity: 0.6;
+              margin-bottom: 1rem;
+            "
+          >
+            Color Palette
+          </p>
+          <div class="color-palette">
+            <div
+              class="color-swatch"
+              style="
+                background: #ffffff;
+                color: #1a1a1a;
+                border: 1px solid rgba(255, 255, 255, 0.3);
+              "
+            >
+              White
+            </div>
+            <div
+              class="color-swatch"
+              style="
+                background: #2d3436;
+                color: white;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+              "
+            >
+              Dark
+            </div>
+            <div class="color-swatch" style="background: #636e72; color: white">
+              Gray
+            </div>
+            <div
+              class="color-swatch"
+              style="background: #dfe6e9; color: #1a1a1a"
+            >
+              Light
+            </div>
+            <div class="color-swatch" style="background: #1a1a1a; color: white">
+              Black
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="cta-section">
+        <a href="kotonoba.html" class="cta-button"
+        target="_blank" 
+        rel="noopener noreferrer">体験する</a>
+      </section>
+    </div>
+
+    <footer>
+      <p>言の葉 — 記憶に、重力を。</p>
+    </footer>
+
+    <script>
+      // Generate falling leaves
+      const leavesContainer = document.getElementById("leaves");
+      const leafEmojis = ["🍃", "🌿", "🍂", "🍁", "🌱"];
+      const leafCount = 25;
+
+      for (let i = 0; i < leafCount; i++) {
+        const leaf = document.createElement("div");
+        leaf.className = "leaf";
+        leaf.textContent =
+          leafEmojis[Math.floor(Math.random() * leafEmojis.length)];
+        leaf.style.left = Math.random() * 100 + "%";
+        leaf.style.animationDuration = 15 + Math.random() * 20 + "s";
+        leaf.style.animationDelay = Math.random() * 15 + "s";
+        leaf.style.fontSize = 1 + Math.random() * 1.5 + "rem";
+        leavesContainer.appendChild(leaf);
+      }
+
+      // Demo words animation
+      const demoWords = document.getElementById("demoWords");
+      const words = [
+        { jp: "美しい", en: "beautiful" },
+        { jp: "静寂", en: "silence" },
+        { jp: "記憶", en: "memory" },
+        { jp: "言葉", en: "words" },
+        { jp: "学ぶ", en: "learn" },
+        { jp: "成長", en: "growth" },
+      ];
+
+      words.forEach((word, index) => {
+        const wordEl = document.createElement("div");
+        wordEl.className = "demo-word";
+        wordEl.textContent = word.jp;
+        wordEl.style.left = 15 + (index % 3) * 30 + "%";
+        wordEl.style.animationDelay = index * 1.2 + "s";
+        demoWords.appendChild(wordEl);
+      });
+
+      // Scroll animations
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = "1";
+              entry.target.style.transform = "translateY(0)";
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      document.querySelectorAll("section:not(.hero)").forEach((section) => {
+        section.style.opacity = "0";
+        section.style.transform = "translateY(30px)";
+        section.style.transition = "all 0.8s ease-out";
+        observer.observe(section);
+      });
+    </script>
+  </body>
+</html>

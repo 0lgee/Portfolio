@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ひとりぼし - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-deep: #0a0e1a;
+            --bg-surface: #111827;
+            --bg-card: #1a2236;
+            --text-primary: #e8e8e8;
+            --text-secondary: #8b95a8;
+            --text-muted: #5a6478;
+            --accent-purple: #9f8ccd;
+            --accent-blue: #6b8cce;
+            --accent-pink: #c9a0b8;
+            --star-glow: rgba(159, 140, 205, 0.3);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Zen Kaku Gothic New', 'Noto Sans JP', sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.8;
+            font-weight: 300;
+            overflow-x: hidden;
+        }
+
+        /* Stars Background */
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 4s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--star-glow) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 0 30px var(--star-glow));
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: unified-float 6s ease-in-out infinite;
+        }
+
+        @keyframes unified-float {
+            0%, 100% { 
+                transform: translateY(0);
+            }
+            50% { 
+                transform: translateY(-15px);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            margin-bottom: 0rem;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.2em;
+            margin-bottom: 2rem;
+            margin-top: -1rem;
+        }
+
+        .hero-concept {
+            max-width: 500px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 2;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* Content Sections */
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        section {
+            padding: 6rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            letter-spacing: 0.3em;
+            color: var(--accent-purple);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            letter-spacing: 0.1em;
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        /* Philosophy Section */
+        .philosophy {
+            background: linear-gradient(180deg, transparent, rgba(17, 24, 39, 0.5), transparent);
+        }
+
+        .philosophy p {
+            font-size: 1.15rem;
+            line-height: 2.2;
+        }
+
+        .philosophy-quote {
+            font-size: 1.5rem;
+            font-weight: 300;
+            text-align: center;
+            padding: 3rem 0;
+            border-left: 2px solid var(--accent-purple);
+            padding-left: 2rem;
+            margin: 2.5rem 0;
+            color: var(--text-primary);
+            line-height: 2;
+        }
+
+        .philosophy-quote span {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-top: 1.5rem;
+        }
+
+        /* Transformation */
+        .transformation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .transform-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .transform-item .kanji {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .transform-item.active .kanji {
+            color: var(--accent-purple);
+            text-shadow: 0 0 30px var(--star-glow);
+        }
+
+        .transform-item .meaning {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        .transform-arrow {
+            font-size: 2rem;
+            color: var(--accent-blue);
+        }
+
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid rgba(159, 140, 205, 0.2);
+            transition: all 0.4s ease;
+        }
+
+
+
+        .feature-icon {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.8;
+        }
+
+        /* Design Section */
+        .design-principles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .principle {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .principle-number {
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--accent-purple);
+            opacity: 0.5;
+            margin-bottom: 1rem;
+        }
+
+        .principle h3 {
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+        }
+
+        .principle p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.8;
+        }
+
+        /* Color Palette */
+        .color-section {
+            margin: 3rem 0;
+        }
+
+        .color-palette {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .color-swatch {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.7);
+            transition: transform 0.3s ease;
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.1);
+        }
+
+        /* Screenshots */
+        .screenshot-area {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .screenshot-image {
+            max-width: 100%;
+            width: 600px;
+            border-radius: 16px;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.5),
+                0 0 80px rgba(159, 140, 205, 0.15);
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+
+
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            line-height: 0.5em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .design-principles {
+                grid-template-columns: 1fr;
+            }
+
+            .transformation {
+                flex-direction: column;
+            }
+
+            .transform-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        .cta-button {
+    display: inline-block;
+    padding: 1.2rem 4rem;
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(159, 140, 205, 0.3);
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.cta-button:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 20px 50px rgba(159, 140, 205, 0.5);
+}
+
+@keyframes pulse-glow {
+    0%, 100% { 
+        box-shadow: 0 0 20px rgba(159, 140, 205, 0.3);
+    }
+    50% { 
+        box-shadow: 0 0 35px rgba(159, 140, 205, 0.6);
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Stars Background -->
+    <div class="stars-container" id="stars"></div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-icon">🪐</div>
+            <h1>ひとりぼし</h1>
+            <p class="hero-subtitle">Private Journal Space</p>
+            <p class="hero-concept">
+                SNSのような投稿体験を、自分だけの静かな空間で。<br>
+                誰にも見せない、自分のための記録。
+            </p>
+        </div>
+        <div class="scroll-indicator">
+            <span>scroll</span>
+            <span>↓</span>
+        </div>
+    </section>
+
+    <div class="content">
+        <!-- Philosophy -->
+        <section class="philosophy">
+            <span class="section-label">Concept</span>
+            <h2>コンセプト</h2>
+            
+            <div class="transformation">
+                <div class="transform-item">
+                    <div class="kanji">一人ぼっち</div>
+                    <div class="meaning">孤独・寂しさ</div>
+                </div>
+                <div class="transform-arrow">→</div>
+                <div class="transform-item active">
+                    <div class="kanji">一人星</div>
+                    <div class="meaning">静かに輝く星</div>
+                </div>
+            </div>
+
+            <p>
+                「一人ぼっち」という言葉には、どこか寂しさが滲みます。
+                けれど、夜空を見上げれば、星々は誰に寄りかかることもなく、静かにひとりで輝いている。
+                孤独は、時に、自分と向き合い、心の声をそっと拾い上げるための大切な時間になり得るのです。
+            </p>
+            
+            <div class="philosophy-quote">
+                誰にも見せない場所だからこそ、<br>
+                本当の自分を記録できる。
+                <span>— ひとりぼし デザイン哲学</span>
+            </div>
+
+            <p>
+                SNSは、つねに「誰かの視線」を想定して形づくられています。
+                けれど、心の奥には、誰にも触れられない小さな記録をそっと置いておく場所も必要ではないでしょうか。ひとりぼしは、あなた一人だけがたどり着ける、静寂のなかの小さな星のようなスペース。
+                他者の光に照らされることなく、思考がふわりと漂い、言葉が自分のかたちを取り戻していく――
+                そんな、ひとりごとのように自由な場所です。
+            </p>
+        </section>
+
+        <!-- Features -->
+        <section>
+            <span class="section-label">Features</span>
+            <h2>機能</h2>
+            <p>
+                シンプルだけど、必要なものはすべて揃っています。
+                自分の思考を整理し、振り返るための道具たち。
+            </p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>投稿</h3>
+                    <p>SNSライクな投稿体験。テキストを書いて、カテゴリを選んで、記録する。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏷️</div>
+                    <h3>タグ・カテゴリ</h3>
+                    <p>自由にカスタマイズできるタグとカテゴリで、記録を整理。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>検索</h3>
+                    <p>過去の自分の言葉を、いつでも検索して見つけられる。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3>カレンダー</h3>
+                    <p>月別のカレンダービューで、記録の軌跡を俯瞰する。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>セルフリプライ</h3>
+                    <p>過去の投稿に、今の自分がコメントを残せる。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>リポスト</h3>
+                    <p>過去の言葉を引用して、新しい視点を加える。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design -->
+        <section>
+            <span class="section-label">Design</span>
+            <h2>デザイン</h2>
+            <p>
+                「ほし」のイメージに合わせた、夜空のような落ち着いたUI。
+                暗いテーマは目に優しく、夜の思索に寄り添います。
+            </p>
+
+            <div class="design-principles">
+                <div class="principle">
+                    <div class="principle-number">01</div>
+                    <h3>静寂</h3>
+                    <p>余計な要素を排除し、<br>思考に集中できる空間</p>
+                </div>
+                <div class="principle">
+                    <div class="principle-number">02</div>
+                    <h3>安らぎ</h3>
+                    <p>ダークテーマと柔らかい色で<br>心を落ち着かせる</p>
+                </div>
+                <div class="principle">
+                    <div class="principle-number">03</div>
+                    <h3>星空</h3>
+                    <p>夜空のような配色で<br>「ひとりぼし」を表現</p>
+                </div>
+            </div>
+
+            <div class="color-section">
+                <p style="text-align: center; font-size: 1rem; color: var(--text-secondary);">Color Palette</p>
+                <div class="color-palette">
+                    <div class="color-swatch" style="background: #0a0e1a;border: 0.8px solid rgba(255, 255, 255, 0.15);">Deep</div>
+                    <div class="color-swatch" style="background: #1a2236;">Card</div>
+                    <div class="color-swatch" style="background: #9f8ccd;">Purple</div>
+                    <div class="color-swatch" style="background: #6b8cce;">Blue</div>
+                    <div class="color-swatch" style="background: #c9a0b8;">Pink</div>
+                </div>
+            </div>
+
+           
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <a href="hitoriboshi.html" class="cta-button"
+            target="_blank" rel="noopener noreferrer">体験する</a>
+        </section>
+    </div>
+
+    <footer>
+        <p>ひとりぼし</p>
+        <p>where your minds orbit</p>
+
+    </footer>
+
+    <script>
+        // Generate stars
+        const starsContainer = document.getElementById('stars');
+        const starCount = 50;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 4 + 's';
+            star.style.animationDuration = (3 + Math.random() * 3) + 's';
+            
+            // Random star sizes
+            const size = Math.random() * 2 + 0.5;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            
+            starsContainer.appendChild(star);
+        }
+
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'all 0.8s ease-out';
+            observer.observe(section);
+        });
+
+        // Hero always visible
+        document.querySelector('.hero').style.opacity = '1';
+        document.querySelector('.hero').style.transform = 'translateY(0)';
+    </script>
+</body>
+</html>
